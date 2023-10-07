@@ -5,6 +5,8 @@
 /home/roni/git_externo/catalogoDeComercios/src/main/java/modelo/dao/DAO.java
 /home/roni/git_externo/catalogoDeComercios/src/main/java/view/empresa/CadastroEmpresa.java
 /home/roni/git_externo/catalogoDeComercios/src/main/java/catologo/Catologo.java
+/home/roni/git_externo/catalogoDeComercios/src/main/java/modelo/dao/CategoriaDAO.java
 /home/roni/git_externo/catalogoDeComercios/src/main/java/util/Informacoes.java
 /home/roni/git_externo/catalogoDeComercios/src/main/java/modelo/entidades/Administrador.java
 /home/roni/git_externo/catalogoDeComercios/src/main/java/modelo/dao/EmpresaDAO.java
+/home/roni/git_externo/catalogoDeComercios/src/main/java/modelo/entidades/Categoria.java

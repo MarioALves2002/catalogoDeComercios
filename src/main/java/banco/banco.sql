@@ -2,6 +2,11 @@ CREATE DATABASE catalogo_comercios;
 
 use catalogo_comercios;
 
+create table categorias (
+    id int not null auto_increment primary key,
+    nome varchar(100) not null unique
+);
+
 create table empresas (
     id int not null unique auto_increment primary key, 
     nome varchar(100) not null,
@@ -10,7 +15,9 @@ create table empresas (
     endereco varchar(100) not null,
     bairro varchar(70) not null,
     cidade varchar(60) not null,
-    complemento varchar(110)
+    complemento varchar(110),
+    categoria int not null,
+    foreign key (categoria) references categorias(id)
 );
 
 create table administradores (

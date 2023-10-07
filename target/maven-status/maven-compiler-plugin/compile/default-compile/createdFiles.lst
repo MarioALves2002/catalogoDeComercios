@@ -1,6 +1,8 @@
 view/empresa/CadastroEmpresa$1.class
+modelo/entidades/Categoria.class
 view/administrador/Login$1.class
 util/Informacoes.class
+modelo/dao/CategoriaDAO.class
 modelo/dao/DAO.class
 view/empresa/PesquisaEmpresas$4.class
 view/empresa/CadastroEmpresa$4.class

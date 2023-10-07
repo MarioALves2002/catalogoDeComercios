@@ -4,12 +4,14 @@
  */
 package view.empresa;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.entidades.Empresa;
 import modelo.dao.EmpresaDAO;
 import javax.swing.JOptionPane;
-import util.Informacoes;
+import modelo.dao.CategoriaDAO;
+import modelo.entidades.Categoria;
 
 /**
  *
@@ -22,6 +24,8 @@ public class CadastroEmpresa extends javax.swing.JFrame {
      */
     public CadastroEmpresa() {
         initComponents();
+        
+        preencherCategorias();
     }
 
     /**
@@ -50,6 +54,8 @@ public class CadastroEmpresa extends javax.swing.JFrame {
         txtComplemento = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cboCategoria = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -114,6 +120,9 @@ public class CadastroEmpresa extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Categoria");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,7 +138,8 @@ public class CadastroEmpresa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                .addComponent(lblCidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblCidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lblEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,7 +157,8 @@ public class CadastroEmpresa extends javax.swing.JFrame {
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 8, Short.MAX_VALUE)))))
+                                .addGap(0, 14, Short.MAX_VALUE))
+                            .addComponent(cboCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
@@ -181,14 +192,18 @@ public class CadastroEmpresa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
-        setSize(new java.awt.Dimension(773, 396));
+        setSize(new java.awt.Dimension(773, 435));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -261,7 +276,9 @@ public class CadastroEmpresa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<Categoria> cboCategoria;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCidade;
@@ -289,6 +306,7 @@ public class CadastroEmpresa extends javax.swing.JFrame {
             e.setBairro(txtBairro.getText());
             e.setCidade(txtCidade.getText());
             e.setComplemento(txtComplemento.getText());
+            e.setCategoria((Categoria) cboCategoria.getSelectedItem());
             
             EmpresaDAO dao = new EmpresaDAO();
             
@@ -296,6 +314,20 @@ public class CadastroEmpresa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar salvar o comércio no banco de dados");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro na coneção com o banco de dados");
+            Logger.getLogger(CadastroEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void preencherCategorias() {
+        try {
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            List<Categoria> lista = categoriaDAO.listar();
+            
+            for (Categoria c: lista){
+                cboCategoria.addItem(c);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro na coneção com o banco de dados");

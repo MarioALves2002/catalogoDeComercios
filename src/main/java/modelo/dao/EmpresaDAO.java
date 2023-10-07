@@ -14,7 +14,7 @@ import java.util.List;
 public class EmpresaDAO extends DAO {
     public boolean inserir(Empresa e) throws Exception {
         Connection con = conectar();
-        String sql = "INSERT INTO empresas(nome, email, telefone, endereco, bairro, cidade, complemento) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO empresas(nome, email, telefone, endereco, bairro, cidade, complemento, categoria) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstm = con.prepareStatement(sql);
         pstm.setString(1, e.getNome());
         pstm.setString(2, e.getEmail());
@@ -23,6 +23,7 @@ public class EmpresaDAO extends DAO {
         pstm.setString(5, e.getBairro());
         pstm.setString(6, e.getCidade());
         pstm.setString(7, e.getComplemento());
+        pstm.setInt(8, e.getCategoria().getId());
 
         int rowsAffected = pstm.executeUpdate();
         return rowsAffected > 0;  

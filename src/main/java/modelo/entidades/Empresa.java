@@ -10,6 +10,7 @@ public class Empresa {
     private String bairro;
     private String cidade;
     private String complemento;
+    private Categoria categoria;
 
     public Empresa() {
     }
@@ -76,5 +77,13 @@ public class Empresa {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
