@@ -2,33 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package View;
+package view.empresa;
 
-import DAO.CadastroDAO;
-import entidades.Cadastro;
-import java.util.ArrayList;
+import modelo.dao.EmpresaDAO;
+import modelo.entidades.Empresa;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import util.GuardarStadosUtils;
+import util.Informacoes;
+import view.administrador.Login;
 
 /**
  *
  * @author mario
  */
-public class telaPesquisa extends javax.swing.JFrame {
+public class PesquisaEmpresas extends javax.swing.JFrame {
 
     /**
      * Creates new form telaPesquisa
      */
-    public telaPesquisa() {
+    public PesquisaEmpresas() {
         initComponents();
-        btnCadastrar.setVisible(false);
-        System.out.println("catalogo" + GuardarStadosUtils.mostrarEstado());
-        if (GuardarStadosUtils.mostrarEstado()) {
+        
+        if (Informacoes.temUsuarioLogado()) {
             btnCadastrar.setVisible(true);
+        } else { 
+            btnCadastrar.setVisible(false);
         }
-        Listarlojas();
-
+        
+        listar();
     }
 
     /**
@@ -121,22 +123,19 @@ public class telaPesquisa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        telaLogin telaLogin = new telaLogin();
-        telaLogin.setVisible(true);
-        GuardarStadosUtils.mudarStadado(false);
+        Login tela = new Login();
+        tela.setVisible(true);
+        
+        Informacoes.limparUsuarioLogado();
 
         dispose();
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        telaCadastro TelaCadastro = new telaCadastro();
+        CadastroEmpresa TelaCadastro = new CadastroEmpresa();
         TelaCadastro.setVisible(true);
 
         dispose();
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -156,20 +155,21 @@ public class telaPesquisa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaPesquisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaEmpresas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaPesquisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaEmpresas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaPesquisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaEmpresas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaPesquisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaEmpresas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaPesquisa().setVisible(true);
+                new PesquisaEmpresas().setVisible(true);
 
             }
         });
@@ -184,32 +184,29 @@ public class telaPesquisa extends javax.swing.JFrame {
     private javax.swing.JTable tabelalojas;
     // End of variables declaration//GEN-END:variables
 
-    public void Listarlojas() {
-
+    public void listar() {
         try {
-            CadastroDAO objcataDAO = new CadastroDAO();
+            EmpresaDAO dao = new EmpresaDAO();
 
             DefaultTableModel model = (DefaultTableModel) tabelalojas.getModel();
             model.setNumRows(0);
 
-            ArrayList<Cadastro> lista = objcataDAO.consultLoja();
+            List<Empresa> lista = dao.listar();
 
-            for (int num = 0; num < lista.size(); num++) {
+            for (Empresa e: lista) {
                 model.addRow(new Object[]{
-                    lista.get(num).getIdLoja(),
-                    lista.get(num).getNomeLoja(),
-                    lista.get(num).getEmailLoja(),
-                    lista.get(num).getTelefoneLoja(),
-                    lista.get(num).getEnderecoLoja(),
-                    lista.get(num).getBairroLoja(),
-                    lista.get(num).getCidadeLoja(),
-                    lista.get(num).getComplemento()
-
+                    e.getId(),
+                    e.getNome(),
+                    e.getEmail(),
+                    e.getTelefone(),
+                    e.getEndereco(),
+                    e.getBairro(),
+                    e.getCidade(),
+                    e.getComplemento()
                 });
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Lstagen de lojas: " + erro);
-
+            JOptionPane.showMessageDialog(null, "Listagem de lojas: " + erro);
         }
     }
 

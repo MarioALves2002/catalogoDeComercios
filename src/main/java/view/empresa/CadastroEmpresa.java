@@ -2,23 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package View;
+package view.empresa;
 
-import entidades.Cadastro;
-import DAO.CadastroDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.entidades.Empresa;
+import modelo.dao.EmpresaDAO;
 import javax.swing.JOptionPane;
-import util.GuardarStadosUtils;
+import util.Informacoes;
 
 /**
  *
  * @author mario
  */
-public class telaCadastro extends javax.swing.JFrame {
+public class CadastroEmpresa extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public telaCadastro() {
+    public CadastroEmpresa() {
         initComponents();
     }
 
@@ -47,11 +49,11 @@ public class telaCadastro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
-        btnVoltar1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de loja");
 
         lblNomeDoComercio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -103,12 +105,12 @@ public class telaCadastro extends javax.swing.JFrame {
             }
         });
 
-        btnVoltar1.setBackground(new java.awt.Color(153, 204, 255));
-        btnVoltar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnVoltar1.setText("Voltar");
-        btnVoltar1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setBackground(new java.awt.Color(153, 204, 255));
+        btnVoltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltar1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -120,7 +122,7 @@ public class telaCadastro extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -182,7 +184,7 @@ public class telaCadastro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -195,22 +197,18 @@ public class telaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBairroActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Salvar();
-        limparcampus();
-
-
+        salvar();
+        
+        limparCampos();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltar1ActionPerformed
-        GuardarStadosUtils.mudarStadado(true);
-        telaPesquisa telaLogin = new telaPesquisa();
-        telaLogin.setVisible(true);
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        PesquisaEmpresas p = new PesquisaEmpresas();
+        p.setVisible(true);
 
         dispose();
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVoltar1ActionPerformed
-    private void limparcampus() {
+    }//GEN-LAST:event_btnVoltarActionPerformed
+    private void limparCampos() {
         txtNomeLoja.setText("");
         txtEmail.setText("");
         txtTelefone.setText("");
@@ -235,14 +233,18 @@ public class telaCadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -251,14 +253,14 @@ public class telaCadastro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaCadastro().setVisible(true);
+                new CadastroEmpresa().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnVoltar1;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblBairro;
@@ -276,30 +278,28 @@ public class telaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    private void Salvar() {
-        Cadastro cd = new Cadastro();
-        CadastroDAO dao = new CadastroDAO();
-        boolean status;
-
-        cd.setNomeLoja(txtNomeLoja.getText());
-        cd.setEmailLoja(txtEmail.getText());
-        cd.setTelefoneLoja(txtTelefone.getText());
-        cd.setEnderecoLoja(txtEndereço.getText());
-        cd.setBairroLoja(txtBairro.getText());
-        cd.setCidadeLoja(txtCidade.getText());
-        cd.setComplemento(txtComplemento.getText());
-
-        status = dao.conect();
-        if (status == false) {
-            JOptionPane.showMessageDialog(null, "Erro na coneção com o banco de dados");
-        } else {
-            status = dao.cadastrarLoja(cd);
-            if (status == false) {
-                JOptionPane.showMessageDialog(null, "Erro ao tentar salvar o comercio no banco de dados");
-            } else {
+    private void salvar() {
+        try {
+            Empresa e = new Empresa();
+            
+            e.setNome(txtNomeLoja.getText());
+            e.setEmail(txtEmail.getText());
+            e.setTelefone(txtTelefone.getText());
+            e.setEndereco(txtEndereço.getText());
+            e.setBairro(txtBairro.getText());
+            e.setCidade(txtCidade.getText());
+            e.setComplemento(txtComplemento.getText());
+            
+            EmpresaDAO dao = new EmpresaDAO();
+            
+            if (dao.inserir(e)){
                 JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao tentar salvar o comércio no banco de dados");
             }
-            dao.desconect();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro na coneção com o banco de dados");
+            Logger.getLogger(CadastroEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
