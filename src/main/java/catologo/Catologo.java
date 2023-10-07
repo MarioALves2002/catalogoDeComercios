@@ -1,13 +1,12 @@
-package com.mycompany.catologo;
+package catologo;
 
-import View.telaLogin;
+import view.administrador.Login;
 
 public class Catologo {
 
     public static void main(String[] args) {
-        telaLogin telaLogin = new telaLogin();
+        Login telaLogin = new Login();
         telaLogin.setVisible(true);
-
     }
 
 }

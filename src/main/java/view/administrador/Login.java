@@ -2,25 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package View;
+package view.administrador;
 
-import DAO.loginAdminDAO;
-import entidades.loginAdmin;
+import view.empresa.PesquisaEmpresas;
+import modelo.dao.AdministradorDAO;
+import modelo.entidades.Administrador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import util.GuardarStadosUtils;
+import util.Informacoes;
 
 /**
  *
  * @author mario
  */
-public class telaLogin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    public telaLogin() {
+    public Login() {
         initComponents();
     }
 
@@ -130,13 +131,12 @@ public class telaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLogarActionPerformed
-        Logar();
-        Limpar();
-
+        logar();
+        limpar();
     }//GEN-LAST:event_bntLogarActionPerformed
 
     private void btnVoltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltaActionPerformed
-        telaPesquisa tela = new telaPesquisa();
+        PesquisaEmpresas tela = new PesquisaEmpresas();
         tela.setVisible(true);
 
         dispose();
@@ -161,21 +161,23 @@ public class telaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaLogin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
@@ -190,47 +192,37 @@ public class telaLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 
-    public void Logar() {
+    private void logar() {
         try {
-            loginAdmin la = new loginAdmin();
+            Administrador a = new Administrador();
 
-            String adminNome, adminSenha;
+            a.setLogin(txtLogin.getText());
+            a.setSenha(txtSenha.getText());
 
-            adminNome = txtLogin.getText();
-            adminSenha = txtSenha.getText();
+            AdministradorDAO dao = new AdministradorDAO();
+            
+            Administrador aLogado = dao.autenticar(a);
 
-            la.setNomeAdmin(adminNome);
-            la.setSenha(adminSenha);
-
-            loginAdminDAO dao = new loginAdminDAO();
-
-            ResultSet rsset = dao.autenticacaoAdmin(la);
-
-            if (rsset.next()) {
-                GuardarStadosUtils.mudarStadado(true);
-                System.out.println("login" + GuardarStadosUtils.mostrarEstado());
-
-                telaPesquisa tela = new telaPesquisa();
+            if (aLogado != null) {
+                Informacoes.setUsuarioLogado(aLogado);
+                
+                PesquisaEmpresas tela = new PesquisaEmpresas();
                 tela.setVisible(true);
 
                 dispose();
-
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha invalido");
-
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+                Informacoes.setUsuarioLogado(null);
             }
-            GuardarStadosUtils.mudarStadado(false);
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, erro);
-
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-
     }
 
-    private void Limpar() {
-
-        txtLogin.setText("");
+    private void limpar() {
+        //txtLogin.setText("");
         txtSenha.setText("");
+        
         txtLogin.requestFocus();
     }
 }
