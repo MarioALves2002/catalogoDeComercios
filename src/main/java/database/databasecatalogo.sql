@@ -18,3 +18,25 @@ usuario  vachar(25) not null unique ,
 senha vachar (25) not null 
 
 )
+CREATE TABLE categoria (
+  idcategorias INT NOT NULL AUTO_INCREMENT,
+  nomecategoria VARCHAR(120) NOT NULL
+)
+INSERT INTO categorias (nomecategoria) VALUES 
+('Lojas Automotivas'),
+('Supermercados e Mercearias'),
+('Lojas de Roupas'),
+('Restaurantes e Lanchonetes'),
+('Farmácias'),
+('Lojas de Eletrônicos'),
+('Lojas de Móveis'),
+('Padarias'),
+('Lojas de Artigos Esportivos'),
+('Livrarias'),
+('Lojas de Brinquedos'),
+('Joalherias'),
+('Lojas de Calçados'),
+('Lojas de Beleza e Cosméticos'),
+('Pet Shops'),
+('Lojas de Material de Construção'),
+('Floriculturas');

@@ -1,5 +1,6 @@
 com\mycompany\catologo\Catologo.class
 View\telaLogin$3.class
+DAO\CategoriaDAO.class
 View\telaCadastro$1.class
 View\telaLogin$2.class
 View\telaPesquisa$1.class
