@@ -1,11 +1,13 @@
 package modelo.dao;
 
+import DAO.DAO;
 import modelo.entidades.Empresa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.entidades.Categoria;
 
 /**
  *
@@ -31,7 +33,7 @@ public class EmpresaDAO extends DAO {
 
     public List<Empresa> listar() throws Exception {
         Connection con = conectar();
-        String sql = "select * from empresas order by nome";
+        String sql = "select * from empresas order by nome ";
         PreparedStatement pstm = con.prepareStatement(sql);
         ResultSet rs = pstm.executeQuery();
 
@@ -47,11 +49,37 @@ public class EmpresaDAO extends DAO {
             e.setBairro(rs.getString("bairro"));
             e.setCidade(rs.getString("cidade"));
             e.setComplemento(rs.getString("complemento"));
-
+            
             lista.add(e);
         }
 
         return lista;
     }
+      public List<Empresa> listarPorCategoria(int idCategoria) throws Exception {
+        Connection con = conectar();
+        String sql = "select * from empresas where categoria = ? ";
+        PreparedStatement pstm = con.prepareStatement(sql);
+        pstm.setInt(1, idCategoria);
+        
+        ResultSet rs = pstm.executeQuery();
 
+        List<Empresa> listarPorCategoria = new ArrayList<>();
+        while (rs.next()) {
+            Empresa e = new Empresa();
+            
+            e.setId(rs.getInt("id"));
+            e.setNome(rs.getString("nome"));
+            e.setEmail(rs.getString("email"));
+            e.setTelefone(rs.getString("telefone"));
+            e.setEndereco(rs.getString("endereco"));
+            e.setBairro(rs.getString("bairro"));
+            e.setCidade(rs.getString("cidade"));
+            e.setComplemento(rs.getString("complemento"));
+            
+            listarPorCategoria.add(e);
+            
+        }
+        return listarPorCategoria ;
+      }
+      
 }

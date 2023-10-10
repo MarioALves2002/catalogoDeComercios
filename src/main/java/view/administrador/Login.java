@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view.administrador;
 
 import view.empresa.PesquisaEmpresas;
 import modelo.dao.AdministradorDAO;
 import modelo.entidades.Administrador;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import util.Informacoes;
 
@@ -220,7 +215,6 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void limpar() {
-        //txtLogin.setText("");
         txtSenha.setText("");
         
         txtLogin.requestFocus();

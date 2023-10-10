@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view.empresa;
 
 import java.util.List;
@@ -123,6 +120,12 @@ public class CadastroEmpresa extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Categoria");
 
+        cboCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCategoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,6 +226,10 @@ public class CadastroEmpresa extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void cboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboCategoriaActionPerformed
     private void limparCampos() {
         txtNomeLoja.setText("");
         txtEmail.setText("");

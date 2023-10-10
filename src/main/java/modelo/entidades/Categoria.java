@@ -5,7 +5,7 @@ package modelo.entidades;
  * @author roni
  */
 public class Categoria {
-    private Integer id;
+    private int id;
     
     private String nome;
 

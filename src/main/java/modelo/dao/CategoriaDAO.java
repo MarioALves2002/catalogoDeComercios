@@ -4,19 +4,20 @@
  */
 package modelo.dao;
 
+import DAO.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.entidades.Categoria;
-import modelo.entidades.Empresa;
 
 /**
  *
  * @author roni
  */
 public class CategoriaDAO extends DAO {
+
     public List<Categoria> listar() throws Exception {
         Connection con = conectar();
         String sql = "select * from categorias order by nome";
@@ -26,7 +27,7 @@ public class CategoriaDAO extends DAO {
         List<Categoria> lista = new ArrayList<>();
         while (rs.next()) {
             Categoria e = new Categoria();
-            
+
             e.setId(rs.getInt("id"));
             e.setNome(rs.getString("nome"));
 
@@ -35,4 +36,6 @@ public class CategoriaDAO extends DAO {
 
         return lista;
     }
+  
+
 }

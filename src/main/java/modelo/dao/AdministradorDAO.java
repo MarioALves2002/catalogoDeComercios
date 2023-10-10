@@ -1,5 +1,6 @@
 package modelo.dao;
 
+import DAO.DAO;
 import modelo.entidades.Administrador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
